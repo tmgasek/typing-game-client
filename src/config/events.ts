@@ -1,0 +1,18 @@
+const EVENTS = {
+  connection: "connection",
+  CLIENT: {
+    CREATE_ROOM: "CREATE_ROOM",
+    SEND_ROOM_MESSAGE: "SEND_ROOM_MESSAGE",
+    JOIN_ROOM: "JOIN_ROOM",
+    START_GAME: "START_GAME",
+  },
+  SERVER: {
+    ROOMS: "ROOMS",
+    JOINED_ROOM: "JOINED_ROOM",
+    ROOM_MESSAGE: "ROOM_MESSAGE",
+    GAME_STARTED: "GAME_STARTED",
+    SEND_PLAYERS: "SEND_PLAYERS",
+  },
+};
+
+export default EVENTS;
