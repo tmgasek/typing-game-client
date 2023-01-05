@@ -55,10 +55,9 @@ export default function Game() {
 
     socket.on("SENDING_STATS_SERVER", ({ users }: any) => {
       setStats(users);
+      console.log(users);
     });
   }, []);
-
-  console.table(stats);
 
   useKeyPress((key: string) => {
     if (status !== "ready") return;
@@ -125,7 +124,7 @@ export default function Game() {
       </div>
       <div className="">
         <h3>Accuracy: {accuracyRef.current}</h3>
-        <p className="">
+        <p className="py-10 font-mono text-3xl">
           <span className="text-gray-400">{outgoingChars}</span>
           <span className="bg-teal-200">{currentChar}</span>
           <span>{incomingChars}</span>

@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import EVENTS from "../config/events";
 import { useSockets } from "../context/socket-context";
 
-const Rooms = (props: {}) => {
+const Rooms = () => {
   const { socket, roomId, rooms, usersInRoom } = useSockets();
   const newRoomRef = useRef<HTMLInputElement>(null);
 

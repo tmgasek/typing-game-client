@@ -10,12 +10,38 @@ interface Context {
   roomId?: string;
   rooms: Rooms;
   messages?: Messages;
-  setMessages: Function;
+  setMessages: (messages: Messages) => void;
   gameStarted: boolean;
   setGameStarted: (gameStarted: boolean) => void;
   connectedUsers: string[];
   usersInRoom: any[];
 }
+interface ServerToClientEvents {
+  rooms: (rooms: Rooms) => void;
+  joinedRoom: (roomId: string) => void;
+  roomMessage: (message: string, username: string, time: string) => void;
+  gameStarted: () => void;
+  sendPlayersInRoom: (users: string[]) => void;
+  sendAllUsers: (users: string[]) => void;
+}
+
+interface ClientToServerEvents {
+  createRoom: (roomName: string) => void;
+  joinRoom: (roomId: string) => void;
+  leaveRoom: (roomId: string) => void;
+  sendMessage: (message: string) => void;
+  startGame: () => void;
+  sendPlayerData: (data: SocketData) => void;
+}
+
+interface InterServerEvents {
+  ping: () => void;
+}
+
+interface SocketData {
+  [key: string]: any;
+}
+
 const socket = io(SOCKET_URL, { autoConnect: false });
 
 const SocketContext = createContext<Context>({

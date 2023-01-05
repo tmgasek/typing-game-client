@@ -17,4 +17,17 @@ const EVENTS = {
   },
 };
 
+export type Events =
+  | "client:create_room"
+  | "client:send_room_message"
+  | "client:join_room"
+  | "client:start_game"
+  | "client:get_players_in_room"
+  | "server:rooms"
+  | "server:joined_room"
+  | "server:room_message"
+  | "server:game_started"
+  | "server:send_players_in_room"
+  | "server:send_all_users";
+
 export default EVENTS;

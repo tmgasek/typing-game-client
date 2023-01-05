@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import { useSockets } from "./context/socket-context";
-import Rooms from "./components/Rooms";
-import Messages from "./components/Messages";
+import { useEffect, useRef } from "react";
 import Game from "./components/Game";
+import Messages from "./components/Messages";
+import Rooms from "./components/Rooms";
+import { useSockets } from "./context/socket-context";
 
 function App() {
   const { socket, username, setUsername, gameStarted, connectedUsers } =
@@ -29,7 +29,7 @@ function App() {
 
   return (
     <div className="grid grid-cols-4 py-8 ">
-      <div className="col-span-1 w-fit border border-black mx-4 p-2">
+      <div className="col-span-1 mx-4 w-fit border border-black p-2">
         <h2>Current users</h2>
         <ul>
           {connectedUsers.length === 0 && (
