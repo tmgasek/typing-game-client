@@ -1,9 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import EVENTS from "../config/events";
 import { useSockets } from "../context/socket-context";
 
 const Rooms = (props: {}) => {
-  const { socket, roomId, rooms } = useSockets();
+  const { socket, roomId, rooms, usersInRoom } = useSockets();
   const newRoomRef = useRef<HTMLInputElement>(null);
 
   const handleCreateRoom = () => {
@@ -17,11 +17,15 @@ const Rooms = (props: {}) => {
   };
 
   const handleJoinRoom = (key: string) => {
-    console.log("joining room", rooms[key]);
     if (key === roomId) return;
 
     socket.emit(EVENTS.CLIENT.JOIN_ROOM, { roomId: key });
   };
+
+  useEffect(() => {
+    if (!roomId) return;
+    socket.emit(EVENTS.CLIENT.GET_PLAYERS_IN_ROOM, { roomId });
+  }, [roomId]);
 
   return (
     <nav>
@@ -50,6 +54,16 @@ const Rooms = (props: {}) => {
             </button>
           ))}
         </div>
+      </div>
+      <div>
+        <ul>
+          {usersInRoom.length === 0 && (
+            <li className="underline">No players in room</li>
+          )}
+          {usersInRoom.map((user: any) => (
+            <li key={user.userID}>{user.username}</li>
+          ))}
+        </ul>
       </div>
     </nav>
   );

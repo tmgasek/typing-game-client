@@ -13,17 +13,21 @@ interface Context {
   setMessages: Function;
   gameStarted: boolean;
   setGameStarted: (gameStarted: boolean) => void;
+  connectedUsers: string[];
+  usersInRoom: any[];
 }
 const socket = io(SOCKET_URL, { autoConnect: false });
 
 const SocketContext = createContext<Context>({
   socket,
-  setUsername: () => {},
+  setUsername: () => false,
   rooms: {},
-  setMessages: () => {},
+  setMessages: () => false,
   messages: [],
   gameStarted: false,
-  setGameStarted: () => {},
+  setGameStarted: () => false,
+  connectedUsers: [],
+  usersInRoom: [],
 });
 
 type Rooms = {
@@ -43,7 +47,13 @@ export default function SocketsProvider(props: any) {
   const [roomId, setRoomId] = useState("");
   const [rooms, setRooms] = useState<Rooms>({});
   const [messages, setMessages] = useState<Messages>([]);
+  const [connectedUsers, setConnectedUsers] = useState<string[]>([]);
   const [gameStarted, setGameStarted] = useState(false);
+  const [usersInRoom, setUsersInRoom] = useState<string[]>([]);
+
+  socket.on(EVENTS.SERVER.SEND_ALL_USERS, (users: any) => {
+    setConnectedUsers(users);
+  });
 
   socket.on(EVENTS.SERVER.ROOMS, (value) => {
     setRooms(value);
@@ -66,12 +76,11 @@ export default function SocketsProvider(props: any) {
   });
 
   socket.on(EVENTS.SERVER.GAME_STARTED, () => {
-    console.log("STARTING GAME");
     setGameStarted(true);
   });
 
-  socket.on(EVENTS.SERVER.SEND_PLAYERS, (players) => {
-    console.log("logging players", players);
+  socket.on(EVENTS.SERVER.SEND_PLAYERS_IN_ROOM, ({ users }) => {
+    setUsersInRoom(users);
   });
 
   return (
@@ -86,6 +95,8 @@ export default function SocketsProvider(props: any) {
         setMessages,
         gameStarted,
         setGameStarted,
+        connectedUsers,
+        usersInRoom,
       }}
     >
       {props.children}

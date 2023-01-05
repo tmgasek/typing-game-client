@@ -5,23 +5,15 @@ import Messages from "./components/Messages";
 import Game from "./components/Game";
 
 function App() {
-  const { socket, username, setUsername, gameStarted } = useSockets();
+  const { socket, username, setUsername, gameStarted, connectedUsers } =
+    useSockets();
   const usernameRef = useRef<HTMLInputElement>(null);
-  const [connectedUsers, setConnectedUsers] = useState<any>([]);
 
   useEffect(() => {
     // const storedUsername = localStorage.getItem("username");
     // if (storedUsername) {
     //   setUsername(storedUsername);
     // }
-    socket.on("users", (users: any) => {
-      console.log("users", users);
-      setConnectedUsers(users);
-    });
-
-    return () => {
-      socket.off("users");
-    };
   }, []);
 
   const handleSetUsername = () => {
@@ -35,13 +27,14 @@ function App() {
     socket.connect();
   };
 
-  console.log({ gameStarted });
-
   return (
-    <div className="grid grid-cols-4 py-8">
+    <div className="grid grid-cols-4 py-8 ">
       <div className="col-span-1 w-fit border border-black mx-4 p-2">
         <h2>Current users</h2>
         <ul>
+          {connectedUsers.length === 0 && (
+            <li className="underline">Enter username to view other users</li>
+          )}
           {connectedUsers.map((user: any) => (
             <li
               className={`${user.username === username && "bg-gray-200"}`}

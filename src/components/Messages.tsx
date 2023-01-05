@@ -2,7 +2,7 @@ import { useRef } from "react";
 import EVENTS from "../config/events";
 import { useSockets } from "../context/socket-context";
 
-const Messages = (props: {}) => {
+const Messages = () => {
   const { socket, messages, roomId, username, setMessages, setGameStarted } =
     useSockets();
   const messageRef = useRef<HTMLTextAreaElement>(null);
@@ -29,7 +29,6 @@ const Messages = (props: {}) => {
   };
 
   const handleStartGame = () => {
-    console.log({ roomId });
     socket.emit(EVENTS.CLIENT.START_GAME, { roomId, username });
   };
 
@@ -43,22 +42,22 @@ const Messages = (props: {}) => {
 
   return (
     <div>
-      <h1 className="text-2xl underline pt-4">Messages</h1>
+      <h1 className="pt-4 text-2xl underline">Messages</h1>
       {messages.map((message, index) => (
         <p key={index}>
           {message.username}:{message.message}
         </p>
       ))}
 
-      <div className="p-4 border border-black w-fit">
+      <div className="w-fit border border-black p-4">
         <textarea rows={1} placeholder="message" ref={messageRef} />
-        <button className="p-4 border border-black" onClick={handleSendMessage}>
+        <button className="border border-black p-4" onClick={handleSendMessage}>
           Send
         </button>
       </div>
       <button
         onClick={handleStartGame}
-        className="border border-red p-4 text-xl"
+        className="border-red border p-4 text-xl"
       >
         Start game
       </button>
