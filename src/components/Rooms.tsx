@@ -6,6 +6,8 @@ const Rooms = () => {
   const { socket, roomId, rooms, usersInRoom } = useSockets();
   const newRoomRef = useRef<HTMLInputElement>(null);
 
+  console.log({ usersInRoom });
+
   const handleCreateRoom = () => {
     // get room name
     const roomName = newRoomRef.current?.value;
@@ -61,7 +63,9 @@ const Rooms = () => {
             <li className="underline">No players in room</li>
           )}
           {usersInRoom.map((user: any) => (
-            <li key={user.userID}>{user.username}</li>
+            <li style={{ backgroundColor: user.color }} key={user.userID}>
+              {user.username}
+            </li>
           ))}
         </ul>
       </div>
