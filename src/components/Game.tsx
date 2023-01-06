@@ -125,14 +125,14 @@ export default function Game() {
     return <ResultsView stats={stats} />;
   }
 
+  console.log({ playerIndexes });
+
   return (
-    <div>
+    <div className="mx-auto w-[900px]">
       {status === "waiting" && "Waiting for game to start..."}
-      {status === "ready" && "Game started!"}
-      <h1>Game</h1>
-      <p>Room: {roomId}</p>
+      <p className="text-xs text-gray-800">room-id: {roomId}</p>
       <div className="">
-        <div className="flex gap-4">
+        <div className="flex gap-4 py-4">
           {playerIndexes.map((player) => (
             <div
               style={{
@@ -140,10 +140,10 @@ export default function Game() {
                   (p) => p.username === player.username
                 )?.color,
               }}
+              className="rounded-lg p-2 px-6 text-center shadow-md shadow-gray-400"
               key={player.username}
             >
               <p>{player.username}</p>
-              <p>{player.charIndex}</p>
             </div>
           ))}
         </div>

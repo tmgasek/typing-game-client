@@ -17,23 +17,35 @@ export default function ResultsView(props: Props) {
 
   console.log({ stats });
   return (
-    <div>
-      <h1>Results</h1>
-      <table>
+    <div className="mx-auto w-[900px]">
+      <h1 className="mb-4 text-2xl font-bold">Results</h1>
+      <table className="w-full border-collapse">
         <thead>
-          <tr>
-            <th>Username</th>
-            <th>WPM</th>
-            <th>Accuracy</th>
+          <tr className="text-left font-bold">
+            <th className="border-b border-gray-300 bg-gray-200 py-4 px-6">
+              Username
+            </th>
+            <th className="border-b border-gray-300 bg-gray-200 py-4 px-6">
+              WPM
+            </th>
+            <th className="border-b border-gray-300 bg-gray-200 py-4 px-6">
+              Accuracy
+            </th>
           </tr>
         </thead>
         <tbody>
           {stats.map((stat) => {
             return (
-              <tr key={stat.username}>
-                <td>{stat.username}</td>
-                <td>{stat.stats.wpm}</td>
-                <td>{stat.stats.accuracy}</td>
+              <tr key={stat.username} className="text-left">
+                <td className="border-b border-gray-300 py-4 px-6">
+                  {stat.username}
+                </td>
+                <td className="border-b border-gray-300 py-4 px-6">
+                  {stat.stats.wpm}
+                </td>
+                <td className="border-b border-gray-300 py-4 px-6">
+                  {stat.stats.accuracy}
+                </td>
               </tr>
             );
           })}

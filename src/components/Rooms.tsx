@@ -30,24 +30,29 @@ const Rooms = () => {
   }, [roomId]);
 
   return (
-    <nav>
+    <nav className="">
       <div>
         <input
           className="border border-gray-500"
           ref={newRoomRef}
           type="text"
         />
-        <button onClick={handleCreateRoom}>Create Room</button>
+        <button
+          className="mt-1 mb-4 border border-black px-2 hover:bg-gray-200"
+          onClick={handleCreateRoom}
+        >
+          Create Room
+        </button>
       </div>
       <div>
         <h1 className="text-2xl underline">Rooms</h1>
         {roomId && <p>Current Room: {rooms[roomId].name}</p>}
-        <div className="flex gap-2">
+        <div className="flex gap-2 py-4">
           {Object.keys(rooms).map((key) => (
             <button
-              className={`border border-black ${
-                key !== roomId && "hover:bg-gray-200"
-              }`}
+              className={`border border-black px-3 py-1 shadow-sm shadow-emerald-500 ${
+                key !== roomId && "hover:bg-emerald-100 "
+              } ${key === roomId && "bg-emerald-300"}`}
               onClick={() => handleJoinRoom(key)}
               disabled={key === roomId}
               key={key}

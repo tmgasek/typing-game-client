@@ -1,1 +1,3 @@
-export const SOCKET_URL = "https://typing-game-server-d3oh.onrender.com/";
+export const SOCKET_URL = import.meta.env.DEV
+  ? "http://localhost:3001"
+  : import.meta.env.SOCKET_URL;
