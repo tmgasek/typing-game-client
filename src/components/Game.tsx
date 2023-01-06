@@ -163,7 +163,7 @@ export default function Game() {
           </p>
           {playerIndexes.map((player) => (
             <div key={player.username}>
-              <p className="absolute left-0 top-0 -z-10 py-10 font-mono text-3xl leading-loose text-white">
+              <p className="absolute left-0 top-0 -z-10 py-10 font-mono text-3xl leading-loose text-transparent">
                 <span>
                   {allWords.split("").map((char, index) => {
                     return (

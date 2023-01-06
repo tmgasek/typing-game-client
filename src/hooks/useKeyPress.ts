@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-const useKeyPress = (callback) => {
-  const [keyPressed, setKeyPressed] = useState();
+const useKeyPress = (callback: (key: string) => void) => {
+  const [keyPressed, setKeyPressed] = useState<string | null>();
 
   useEffect(() => {
-    const downHandler = ({ key }) => {
+    const downHandler = ({ key }: { key: string }) => {
       if (keyPressed !== key && key.length === 1) {
         setKeyPressed(key);
         callback && callback(key);
